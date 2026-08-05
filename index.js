@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import Redis from "ioredis";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -44,6 +44,7 @@ app.get("/banner/exists",async (req,res)=>{
 
 
 
+/*
 
 app.post("/otp", async (req, res) => {
     try {
@@ -120,11 +121,63 @@ app.post("/otp/verify/:phone", async (req, res) => {
     }
 });
 
+*/
+
+/*
+
+// HASH AND JSON
+
+    //JSON
+
+app.post("/user/:id/json",async(req,res)=>{
+    const data = req.body;
+    const { id } = req.params;
+
+    if(!data) return res.status(400).json({"message":"Please fill input feild"})
+
+    await redis.set(`user:${id}:json`,JSON.stringify(data))
+    return res.json({"message":"Data is saved in redis"});
+})
+
+app.get("/user/:id/json",async(req,res)=>{
+    const {id} = req.params;
+
+    const data = await redis.get(`user:${id}:json`);
+    return res.json(JSON.parse(data));
+
+})
+
+
+  //HASH
+
+  app.post("/user/:id/hash",async(req,res)=>{
+    const data = req.body;
+    const { id } = req.params;
+
+    if(!data) return res.status(400).json({"message":"Please fill input feild"})
+
+    await redis.hset(`user:${id}:hash`,data)
+    return res.json({"message":"Data is saved in redis"});
+})
+
+app.get("/user/:id/hash",async(req,res)=>{
+    const {id} = req.params;
+
+    const data = await redis.hgetall(`user:${id}:hash`);
+    return res.json(data);
+
+})
+
+*/
 
 
 
 
 
+
+
+
+// BASIC TESTING
 
 app.get("/",async(req,res)=>{
     res.send("hello from express server")
